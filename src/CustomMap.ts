@@ -8,6 +8,7 @@ interface Mappable {
         lat: number,
         lng: number,
     }
+    markerContent(): string;
 }
 
 export class CustomMap {
@@ -32,14 +33,18 @@ export class CustomMap {
                 lng: mappable.location.lng
             }
         })
+
         marker.addListener('click', () => {
+            const infoWindow =  new google.maps.InfoWindow({
+                content: mappable.markerContent(),
+            })
+      
+
             infoWindow.open(this.googleMap, marker);
-        }); 
-        const infoWindow = new google.maps.InfoWindow({
-            content: 'Hi there!',
+       
         });
 
-    
+        }
     }
 
 //     addCompanyMarker(company: Company): void {
@@ -51,4 +56,3 @@ export class CustomMap {
 //             }
 //         })
 //     }
-}

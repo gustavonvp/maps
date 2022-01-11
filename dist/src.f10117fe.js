@@ -136889,12 +136889,16 @@ var Company =
 function () {
   function Company() {
     this.companyName = faker_1.default.company.companyName();
-    this.companyName = faker_1.default.company.catchPhrase();
+    this.catchPhrase = faker_1.default.company.catchPhrase();
     this.location = {
       lat: parseFloat(faker_1.default.address.latitude()),
       lng: parseFloat(faker_1.default.address.longitude())
     };
   }
+
+  Company.prototype.markerContent = function () {
+    return "\n            <div>\n                <h1>Company Name: ".concat(this.companyName, "</h1>\n                <h3>Catchphrase: ").concat(this.catchPhrase, "</h3>\n            </div>\n        \n        ");
+  };
 
   return Company;
 }();
@@ -136934,17 +136938,25 @@ function () {
       }
     });
     marker.addListener('click', function () {
+      var infoWindow = new google.maps.InfoWindow({
+        content: mappable.markerContent()
+      });
       infoWindow.open(_this.googleMap, marker);
-    });
-    var infoWindow = new google.maps.InfoWindow({
-      content: 'Hi there!'
     });
   };
 
   return CustomMap;
 }();
 
-exports.CustomMap = CustomMap;
+exports.CustomMap = CustomMap; //     addCompanyMarker(company: Company): void {
+//         new google.maps.Marker({
+//             map: this.googleMap,
+//             position: {
+//                 lat: company.location.lat,
+//                 lng: company.location.lng
+//             }
+//         })
+//     }
 },{}],"src/User.ts":[function(require,module,exports) {
 "use strict";
 
@@ -136972,6 +136984,10 @@ function () {
       lng: parseFloat(faker_1.default.address.longitude())
     };
   }
+
+  User.prototype.markerContent = function () {
+    return "User Name: ".concat(this.name);
+  };
 
   return User;
 }();
