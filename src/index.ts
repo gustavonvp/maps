@@ -17,6 +17,6 @@ const company = new Company();
 
 const maps =  new CustomMap('map');
 
-maps.addUserMarker(user);
+maps.addMarker(user);
 
-maps.addCompanyMarker(company);
+ maps.addMarker(company);
