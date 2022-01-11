@@ -1,5 +1,5 @@
-import { User } from "./User";
-import { Company } from "./company";
+// import { User } from "./User";
+// import { Company } from "./company";
 
 // Instructions to every other class
 // on how they can be an argument to 'addMarker'
@@ -20,17 +20,26 @@ export class CustomMap {
                 lat: 0,
                 lng: 0,
             }
-        });
+        });  
     }
 
     addMarker(mappable: Mappable): void {
-        new google.maps.Marker({
+    
+        const marker =   new google.maps.Marker({
             map: this.googleMap,
             position: {
                 lat: mappable.location.lat,
                 lng: mappable.location.lng
             }
         })
+        marker.addListener('click', () => {
+            infoWindow.open(this.googleMap, marker);
+        }); 
+        const infoWindow = new google.maps.InfoWindow({
+            content: 'Hi there!',
+        });
+
+    
     }
 
 //     addCompanyMarker(company: Company): void {
